@@ -1,0 +1,1 @@
+template_private_settings.py-ri private_settings.py izena jarri eta zure giltza ezkutua ezarri.
