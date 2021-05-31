@@ -1,1 +1,5 @@
-jaurlaritza_viewer/private_settings.py
+db.sqlite3
+db.sqlite3-journal
+legebiltzar_bistaratzea/private_settings.py
+legebiltzar_bistaratzea.code-workspace
+.vscode

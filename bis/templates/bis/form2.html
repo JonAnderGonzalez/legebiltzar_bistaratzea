@@ -1,0 +1,93 @@
+<div id="form2" class="form">
+    <div id="surnamess2" class="option_wrp">
+      <div class="head2">
+        <h1>Abizenak</h1>
+      </div>
+      <div class="custom_dropdown">
+        <select id="surnames2" name="surnames2" class="select2">
+          <option selected value=""></option>
+          {% for surname in surnames %}
+          <option value= "{{ surname }}"> {{ surname }}</option>
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+      
+    <div id="genders2" class="option_wrp">
+      <div class="head2">
+          <h1>Generoa</h1>
+      </div>
+      <div class="options">
+        <input type="checkbox" id="gender1_2" name="gender1_2" value="male">
+        <label for="gender1_2">Gizon</label><br>
+        <input type="checkbox" id="gender2_2" name="gender2_2" value="female">
+        <label for="gender2_2">Emakume</label><br>
+      </div>    
+    </div>
+      
+    <div id="parties2" class="option_wrp">
+      <div class="head2">
+        <h1>Alderdia</h1>
+      </div>
+      <div class="custom_dropdown">
+        <select id="party2" name="party2" class="select2">
+          <option selected value=""></option>
+          <option value="ARARTEKO">Arartekoa</option>
+          <option value="EAJ">EAJ</option>
+          <option value="EB">Ezker Batua</option>
+          <option value="EH Bildu">Bildu</option>
+          <option value="EP">Elkarrekin Podemos</option>
+          <option value="N">Ezezaguna</option>
+          <option value="PP">PP</option>
+          <option value="PSE-EE">PSE</option>
+          <option value="UPyD">UPyD</option>
+        </select>
+      </div>
+    </div>
+        
+    <div id="languages2" class="option_wrp">
+      <div class="head2">
+        <h1>Hizkuntza</h1>
+      </div>
+      <div class="options">
+        <input type="checkbox" id="language1_2" name="language1_2" value="basque">
+        <label for="language1_2">Euskara</label><br>
+        <input type="checkbox" id="language2_2" name="language2_2" value="spanish">
+        <label for="language2_2">Gaztelania</label><br>
+      </div>
+    </div>
+    
+    <div id="dates2" class="option_wrp date">
+      <div class="head2">
+        <h1>Data</h1>
+      </div>
+      <div class="date_wrp">
+        <div class="sub_date">
+          <p>Hasiera</p>
+          <div class="date_dropdown">
+            <select id="year_s2" class="year select2" name="year_s2" data-months_handler="{% url 'vis:months_handler' %}">
+              <option selected value=""></option>
+              {% for year in years %}
+              <option value= "{{ year }}"> {{ year }}</option>
+              {% endfor %}
+            </select>
+            <select id="month_s2" class="select2" name="month_s2" disabled>
+            </select>
+          </div>
+        </div>
+        <div class="sub_date">
+          <p>Bukaera</p>
+          <div class="date_dropdown">
+            <select id="year_e2" class="year select2" name="year_e2" data-months_handle="{% url 'vis:months_handler' %}">
+              <option selected value=""></option>
+              {% for year in years %}
+              <option value= "{{ year }}"> {{ year }}</option>
+              {% endfor %}
+            </select>
+            <select id="month_e2" class="select2" name="month_e2" disabled>
+            </select>
+          </div>
+        </div>           
+      </div>
+    </div>
+  </div> 

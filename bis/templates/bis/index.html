@@ -1,13 +1,77 @@
-{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {% comment %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bis/style.css' %}">
+    {% endcomment %}
+    <link rel="shortcut icon" href="{%  static 'bis/favicon.ico' %}"> 
+  </head>
+    <body>
+      <div id=wrapper>
+        <div id=nav_wrp>
+          <nav>
+            <a href="#tables" id="tables_switch" class="switch">Taulak</a>
+            <a href="#participations" id="participations_switch" class="switch">Parte Hartzeak</a> 
+            <a href="#lda" id="lda_switch" class="switch">LDA</a>  
+            <a href="#scatter" id="scatter_switch" class="switch">Scatter Text</a> 
+            {% comment %}
+            <a href="#sentiments" id="sentiments_switch" class="switch">Sentimenduak</a>  
+            {% endcomment %}
+          </nav>
+        </div>
+      
+        <div id="menu"> 
+          <div id="forms_wrp">
+            <form id="forms" 
+                  {% comment %}
+                  data-tables="{% url 'bis:tables' %}"
+                  data-participations="{% url 'bis:participations' %}"
+                  data-scatter="{% url 'bis:scatter' %}"
+                  data-csrf="{{ csrf_token }}"
+                  {% endcomment %}
+                  method="post">
+              {% csrf_token %}
+              <input type="hidden" id="form_number" name="form_number" value="1"> 
+              {% include 'bis/form1.html' %}
+              {% include 'bis/form2.html' %}
+            </form>
+          </div>
+          <div id="not_form">
+            <div class="btn_wrp">
+              <button id="number_btn" class="single" type="button">Alderatu</button>
+            </div>
+          </div> 
+        </div> 
 
-<link rel="stylesheet" type="text/css" href="{% static 'bis/style.css' %}">
+        <div id="lda_menu"> 
+          {% include 'bis/lda_menu.html' %}
+        </div>
 
-{% if latest_question_list %}
-    <ul>
-    {% for question in latest_question_list %}
-        <li><a href="{% url 'bis:detail' question.id %}">{{ question.question_text }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No polls are available.</p>
-{% endif %}
+        <div id="display">
+          <div id="tables" class="content">
+            {% include 'bis/tables.html' %}
+          </div>
+
+          <div id="participations" class="content">
+            {% include 'bis/participations.html' %}
+          </div>
+
+          <div id="lda" class="content">
+            <iframe src="{% static 'bis/ldavis.html' %}" id="lda_iframe"> </iframe>
+          </div>
+
+          <div id="scatter" class="content">
+            <iframe src="about:blank" id="scatter_iframe"></iframe>
+          </div>
+
+          <div id="sentiments" class="content">
+            {% include 'vis/sentiments.html' %}
+          </div>  
+        </div>    
+      </div>
+    <script src="{% static 'bis/main.js' %}"></script>
+  </body>
+</html>
