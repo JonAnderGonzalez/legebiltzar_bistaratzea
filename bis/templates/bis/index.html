@@ -13,12 +13,12 @@
       <div id=wrapper>
         <div id=nav_wrp>
           <nav>
-            <a href="#tables" id="tables_switch" class="switch">Taulak</a>
-            <a href="#participations" id="participations_switch" class="switch">Parte Hartzeak</a> 
+            <a href="#taulak" id="tables_switch" class="switch">Taulak</a>
+            <a href="#parteHartzeak" id="parteHartzeak_switch" class="switch">Parte Hartzeak</a> 
             <a href="#lda" id="lda_switch" class="switch">LDA</a>  
             <a href="#scatter" id="scatter_switch" class="switch">Scatter Text</a> 
             {% comment %}
-            <a href="#sentiments" id="sentiments_switch" class="switch">Sentimenduak</a>  
+            <a href="#sentimenduak" id="sentimenduak_switch" class="switch">Sentimenduak</a>  
             {% endcomment %}
           </nav>
         </div>
@@ -26,15 +26,14 @@
         <div id="menu"> 
           <div id="forms_wrp">
             <form id="forms" 
+                  data-taulak="{% url 'bis:taulak' %}"
                   {% comment %}
-                  data-tables="{% url 'bis:tables' %}"
-                  data-participations="{% url 'bis:participations' %}"
+                  data-parteHartzeak="{% url 'bis:parteHartzeak' %}"
                   data-scatter="{% url 'bis:scatter' %}"
-                  data-csrf="{{ csrf_token }}"
                   {% endcomment %}
                   method="post">
               {% csrf_token %}
-              <input type="hidden" id="form_number" name="form_number" value="1"> 
+              <input type="hidden" id="form_kopurua" name="form_kopurua" value="1"> 
               {% include 'bis/form1.html' %}
               {% include 'bis/form2.html' %}
             </form>
@@ -45,18 +44,19 @@
             </div>
           </div> 
         </div> 
-
+        {% comment %}
         <div id="lda_menu"> 
           {% include 'bis/lda_menu.html' %}
         </div>
+        {% endcomment %}
 
         <div id="display">
-          <div id="tables" class="content">
-            {% include 'bis/tables.html' %}
+          <div id="taulak" class="content">
+            {% include 'bis/taulak.html' %}
           </div>
-
-          <div id="participations" class="content">
-            {% include 'bis/participations.html' %}
+          {% comment %}
+          <div id="parteHartzeak" class="content">
+            {% include 'bis/parteHartzeak.html' %}
           </div>
 
           <div id="lda" class="content">
@@ -66,10 +66,10 @@
           <div id="scatter" class="content">
             <iframe src="about:blank" id="scatter_iframe"></iframe>
           </div>
-
-          <div id="sentiments" class="content">
-            {% include 'vis/sentiments.html' %}
+          <div id="sentimenduak" class="content">
+            {% include 'bis/sentimenduak.html' %}
           </div>  
+          {% endcomment %}
         </div>    
       </div>
     <script src="{% static 'bis/main.js' %}"></script>

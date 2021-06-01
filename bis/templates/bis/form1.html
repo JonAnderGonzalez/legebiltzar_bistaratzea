@@ -1,98 +1,98 @@
 <div id="form1" class="form">
-    <div id="abizenak_wrp1" class="option_wrp">
-      <div class="head1">
-        <h1>Abizenak</h1>
-      </div>
-      <div class="custom_dropdown">
-        <select id="abizenak1" name="abizenak1" class="select1">
-          <option selected value=""></option>
-          {% for surname in surnames %}
-          <option value= "{{ surname }}"> {{ surname }}</option>
-          {% endfor %}
-        </select>
-      </div>
+  <div id="abizenak_wrp1" class="option_wrp">
+    <div class="head1">
+      <h1>Abizenak</h1>
     </div>
-  
-    <div id="generoa_wrp" class="option_wrp">
-      <div class="head1">
-        <h1>Generoa</h1>
-      </div>
-      <div class="aukerak">
-        <input type="checkbox" id="generoa1_1" name="generoa1_1" value="gizon">
-        <label for="generoa1_1">Gizon</label><br>
-        <input type="checkbox" id="generoa2_1" name="generoa2_1" value="emakume">
-        <label for="generoa2_1">Emakume</label><br>
-      </div>
+    <div class="custom_dropdown">
+      <select id="abizenak1" name="abizenak1" class="select1">
+        <option selected value=""></option>
+        {% for abizenak in abizenak_zer %}
+        <option value= "{{ abizenak }}"> {{ abizenak }}</option>
+        {% endfor %}
+      </select>
     </div>
-  
-    <div id="parties1" class="option_wrp">
-      <div class="head1">
-        <h1>Alderdia</h1>
-      </div>
-      <div class="custom_dropdown">
-        <select id="party1" name="party1" class="select1">
-          <option selected value=""></option>
-          <option value="ARARTEKO">Arartekoa</option>
-          <option value="EAJ">EAJ</option>
-          <option value="EB">Ezker Batua</option>
-          <option value="EH Bildu">Bildu</option>
-          <option value="EP">Elkarrekin Podemos</option>
-          <option value="N">Ezezaguna</option>
-          <option value="PP">PP</option>
-          <option value="PSE-EE">PSE</option>
-          <option value="UPyD">UPyD</option>
-        </select>
-      </div>
-    </div>
-  
-    <div id="languages1" class="option_wrp">
-      <div class="head1">
-        <h1>Hizkuntza</h1>
-      </div>
-      <div class="options">
-        <input type="checkbox" id="language1_1" name="language1_1" value="basque">
-        <label for="language1_1">Euskara</label><br>
-        <input type="checkbox" id="language2_1" name="language2_1" value="spanish">
-        <label for="language2_1">Gaztelania</label><br>
-      </div>
-    </div>
-  
-    <div id="dates1" class="option_wrp date">
-      <div class="head1">
-        <h1>Data</h1>
-      </div>
-      <div class="date_wrp">
-        <div class="sub_date">
-          <p>Hasiera</p>
-          <div class="date_dropdown">
-            <select id="year_s1" class="year select1" name="year_s1" data-months_handler="{% url 'vis:months_handler' %}">
-              <option selected value=""></option>
-              {% for year in years %}
-              <option value= "{{ year }}"> {{ year }}</option>
-              {% endfor %}
-            </select>
-            <select id="month_s1" class="select1" name="month_s1" disabled>
-            </select>
-          </div>    
-        </div>
-        <div class="sub_date">
-          <p>Bukaera</p>
-          <div class="date_dropdown">
-            <select id="year_e1" class="year select1" name="year_e1" data-months_handler="{% url 'vis:months_handler' %}">
-              <option selected value=""></option>
-              {% for year in years %}
-              <option value= "{{ year }}"> {{ year }}</option>
-              {% endfor %}
-            </select>
-            <select id="month_e1" class="select1" name="month_e1" disabled>
-            </select>
-          </div>
-        </div>        
-      </div>
-    </div>
-  
-    <div class="btn_wrp">
-      <input class="btn_copy" id="filter_btn" type="submit" value="Iragazi", name="filter_btn">
-    </div> 
   </div>
+  
+  <div id="generoa_wrp1" class="option_wrp">
+    <div class="head1">
+      <h1>Generoa</h1>
+    </div>
+    <div class="aukerak">
+      <input type="checkbox" id="generoa1_1" name="generoa1_1" value="gizon">
+      <label for="generoa1_1">Gizon</label><br>
+      <input type="checkbox" id="generoa2_1" name="generoa2_1" value="emakume">
+      <label for="generoa2_1">Emakume</label><br>
+    </div>
+  </div>
+  
+  <div id="alderdia_wrp1" class="option_wrp">
+    <div class="head1">
+      <h1>Alderdia</h1>
+    </div>
+    <div class="custom_dropdown">
+      <select id="alderdia1" name="alderdia1" class="select1">
+        <option selected value=""></option>
+        <option value="ARARTEKO">Arartekoa</option>
+        <option value="EAJ">EAJ</option>
+        <option value="EB">Ezker Batua</option>
+        <option value="EH Bildu">Bildu</option>
+        <option value="EP">Elkarrekin Podemos</option>
+        <option value="N">Ezezaguna</option>
+        <option value="PP">PP</option>
+        <option value="PSE-EE">PSE</option>
+        <option value="UPyD">UPyD</option>
+      </select>
+    </div>
+  </div>
+  
+  <div id="hizkuntza_wrp1" class="option_wrp">
+    <div class="head1">
+      <h1>Hizkuntza</h1>
+    </div>
+    <div class="options">
+      <input type="checkbox" id="hizkuntza1_1" name="hizkuntza1_1" value="euskara">
+      <label for="hizkuntza1_1">Euskara</label><br>
+      <input type="checkbox" id="hizkuntza2_1" name="hizkuntza2_1" value="gaztelania">
+      <label for="hizkuntza2_1">Gaztelania</label><br>
+    </div>
+  </div>
+  
+  <div id="data_wrp1" class="option_wrp data">
+    <div class="head1">
+      <h1>Data</h1>
+    </div>
+    <div class="data_wrp">
+      <div class="sub_data">
+        <p>Hasiera</p>
+        <div class="data_dropdown">
+          <select id="urtea_h1" class="urtea select1" name="urtea_h1" data-hilabete_handler="{% url 'bis:hilabete_handler' %}">
+            <option selected value=""></option>
+            {% for urtea in urteak %}
+            <option value= "{{ urtea }}"> {{ urtea }}</option>
+            {% endfor %}
+          </select>
+          <select id="hilabetea_h1" class="select1" name="hilabetea_h1" disabled>
+          </select>
+        </div>    
+      </div>
+      <div class="sub_data">
+        <p>Bukaera</p>
+        <div class="data_dropdown">
+          <select id="urtea_b1" class="urtea select1" name="urtea_b1" data-hilabete_handler="{% url 'bis:hilabete_handler' %}">
+            <option selected value=""></option>
+            {% for urtea in urteak %}
+            <option value= "{{ urtea }}"> {{ urtea }}</option>
+            {% endfor %}
+          </select>
+          <select id="hilabetea_b1" class="select1" name="hilabetea_b1" disabled>
+          </select>
+        </div>
+      </div>        
+    </div>
+  </div>
+
+  <div class="btn_wrp">
+    <input class="btn_copy" id="iragazi_btn" type="submit" value="Iragazi", name="iragazi_btn">
+  </div> 
+</div>
   
