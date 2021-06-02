@@ -11,8 +11,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         dirname = os.path.dirname(__file__)
         transkripzioak = os.path.join(dirname, 'data', 'transkripzioak_clean.csv')
-        testuak = os.path.join(dirname, 'data', 'testuak_NER.csv')
-        #testuak = os.path.join(dirname, 'data', 'testuak_guztia.csv')
+        testuak = os.path.join(dirname, 'data', 'testuak_guztia.csv')
         df_transkripzioak = pd.read_csv(transkripzioak, sep='\t')
         df_testuak = pd.read_csv(testuak, sep="\t")
 
@@ -36,10 +35,9 @@ class Command(BaseCommand):
                 testua = row_testua["Testua"]
                 hizkuntza = row_testua["Hizkuntza"]
                 entitateak = row_testua["NER"]
-                #entitateak_stopwords = row_testua["NER_stopwords"]
-                #lemma = row_testua["lemma"]
-                #tf_idf = row_testua["tf_idf"]
+                entitateak_stopwords = row_testua["NER_stopwords"]
+                lemma = row_testua["lemma_stopwords"]
 
                 p.testua_set.create(t_ordena=t_ordena, testua=testua, hizkuntza=hizkuntza, 
-                                    entitateak=entitateak)#, entitateak_stopwords=entitateak_stopwords,
-                                    #lemma=lemma, tf_idf=tf_idf)
+                                    entitateak=entitateak, entitateak_stopwords=entitateak_stopwords,
+                                    lemma=lemma)

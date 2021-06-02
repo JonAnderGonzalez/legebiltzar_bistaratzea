@@ -2,4 +2,5 @@ db.sqlite3
 db.sqlite3-journal
 legebiltzar_bistaratzea/private_settings.py
 legebiltzar_bistaratzea.code-workspace
+bis/management/commands/data/
 .vscode

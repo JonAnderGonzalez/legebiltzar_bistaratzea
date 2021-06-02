@@ -13,7 +13,7 @@ class ParteHartzeaAdmin(admin.ModelAdmin):
     date_hierarchy = 'data'
 
 class TestuaAdmin(admin.ModelAdmin):
-    list_display = ('parteHartzea', 't_ordena', 'hizkuntza','entitateak_ditu')#,'entitateak_stopwords_ditu','tf_idf_ditu')
+    list_display = ('parteHartzea', 't_ordena', 'hizkuntza','entitateak_ditu','entitateak_stopwords_ditu','lemma_ditu','tf_idf_ditu')
     search_fields = ['parteHartzea__p_ordena', 't_ordena','entitateak']
     list_filter = ['hizkuntza']
     date_hierarchy = 'parteHartzea__data'

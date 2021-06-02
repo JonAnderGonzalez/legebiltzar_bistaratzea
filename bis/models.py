@@ -39,10 +39,10 @@ class Testua(models.Model):
     t_ordena = models.IntegerField(default=0)
     testua = models.TextField()
     hizkuntza = models.CharField(max_length=10)
-    entitateak = models.TextField()
-    #entitateak_stopwords = models.TextField()
-    #lemma = models.TextField()
-    #tf_idf = models.TextField()
+    entitateak = models.TextField(default="")
+    entitateak_stopwords = models.TextField(default="")
+    lemma = models.TextField(default="")
+    tf_idf = models.TextField(default="")
 
     class Meta:
         unique_together = ["parteHartzea", "t_ordena"]
@@ -54,17 +54,23 @@ class Testua(models.Model):
     entitateak_ditu.boolean = True
     entitateak_ditu.short_description = 'Entitaterik du?'
 
-    # def entitateak_stopwords_ditu(self):
-    #     return self.entitateak!= "nan"
+    def entitateak_stopwords_ditu(self):
+        return self.entitateak!= "nan"
 
-    # entitateak_stopwords_ditu.boolean = True
-    # entitateak_stopwords_ditu.short_description = 'Entitaterik du?'
+    entitateak_stopwords_ditu.boolean = True
+    entitateak_stopwords_ditu.short_description = 'Ent stopwords du?'
 
-    # def tf_idf_ditu(self):
-    #     return self.tf_idf!= ""
+    def lemma_ditu(self):
+        return self.lemma!= ""
+
+    lemma_ditu.boolean = True
+    lemma_ditu.short_description = 'lemmak ditu?'
+
+    def tf_idf_ditu(self):
+        return self.tf_idf!= ""
     
-    # tf_idf_ditu.boolean = True
-    # tf_idf_ditu.short_description = 'Entitaterik du?'
+    tf_idf_ditu.boolean = True
+    tf_idf_ditu.short_description = 'tf_idf du?'
 
     def __str__(self):
         return str(self.parteHartzea.data) + "-" + str(self.parteHartzea.p_ordena) + "/" + str(self.t_ordena)
