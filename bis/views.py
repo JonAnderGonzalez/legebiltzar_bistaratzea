@@ -177,7 +177,7 @@ def form_handler(request_, form_kopurua, mode="other"):
         hilabetea_b = request_.POST.get('hilabetea_b2', False)
 
         if mode!="scatter":
-            title2 = titulua_egin(abizenak, gizon, emakume, alderdia, euskera, gaztelania,
+            titulua2 = titulua_egin(abizenak, gizon, emakume, alderdia, euskera, gaztelania,
                                urtea_h, urtea_b, hilabetea_h, hilabetea_b)
 
         testuak2 = testuak_iragazi(abizenak=abizenak, gizon=gizon, emakume=emakume, alderdia=alderdia,
@@ -224,7 +224,8 @@ def get_entitateak_stp(testuak):
     entitateak: testuetan agertzen diren entitate izendunen Counter.
 
     """
-    entitateak_list = [t.entitateak for t in testuak if t.entitateak_stopwords!='nan']
+    entitateak_list = [t.entitateak_stopwords for t in testuak 
+                        if t.entitateak_stopwords!='nan' and t.entitateak_stopwords!='[]']
 
     entitateak = Counter([e for entitateak in entitateak_list
                         for e in entitateak.split("\n")])
@@ -302,13 +303,13 @@ def taulak(request):
         entitateak1 = get_entitateak(testuak1)
         entitateak_stp1 = get_entitateak_stp(testuak1)
         tf_idfs1 = get_tf_idfs(testuak1)
-        taula_err1 = [e + t for e, t in zip(entitateak1.most_common()[:25],
+        taula_err1 = [e + es + t for e, es, t in zip(entitateak1.most_common()[:25],
                      entitateak_stp1.most_common()[:25], tf_idfs1.most_common()[:25])]
     if testuak2:
         entitateak2 = get_entitateak(testuak2)
         entitateak_stp2 = get_entitateak_stp(testuak2)
         tf_idfs2 = get_tf_idfs(testuak2)
-        taula_err2 = [e + t for e, t in zip(entitateak2.most_common()[:25],
+        taula_err2 = [e + es + t for e, es, t in zip(entitateak2.most_common()[:25],
                      entitateak_stp2.most_common()[:25], tf_idfs2.most_common()[:25])]
 
     return JsonResponse({'taula_err1':taula_err1, 'taula_err2':taula_err2,
@@ -365,7 +366,7 @@ def parteHartzeak(request):
         parteHartze_err2 = [t.testua for t in testuak2][:100]
 
     return JsonResponse({'parteHartze_err1':parteHartze_err1, 'parteHartze_err2':parteHartze_err2,
-                        'title1':titulua_bikotea[0], 'title2':titulua_bikotea[1], 'warn':warn})
+                        'titulua1':titulua_bikotea[0], 'titulua2':titulua_bikotea[1], 'warn':warn})
 
 
 def get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2):
@@ -382,17 +383,31 @@ def get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2):
     None
 
     """
+    tf_idfs1 = dict(tf_idfs1.most_common()[:1000])
+    tf_idfs2 = dict(tf_idfs2.most_common()[:1000])
     entitateak = list(set(tf_idfs1) | set(tf_idfs2))
-    frek1 = [tf_idfs1[t] for t in entitateak]
-    frek2 = [tf_idfs2[t] for t in entitateak]
+    frek1 = []
+    frek2 = []
+    for t in entitateak:
+        if t in tf_idfs1:
+            frek1.append(tf_idfs1[t])
+
+        else:
+            frek1.append(0)
+
+    for t in entitateak:
+        if t in tf_idfs2:
+            frek2.append(tf_idfs2[t])
+        else:
+            frek2.append(0)
+ 
     data = {'1.':frek1,'2.':frek2}
     frek_df = pd.DataFrame(data, index=entitateak)
-    frek_df.to_csv("scatter.csv")
-    document_df = pd.DataFrame([{'text': t,
-                                'category': '1.'} for t in testuak1] +[{'text': t,
-                                'category': '2.'} for t in testuak2])
+    # document_df = pd.DataFrame([{'text': t,
+    #                             'category': '1.'} for t in testuak1] +[{'text': t,
+    #                             'category': '2.'} for t in testuak2])
 
-    doc_term_cat_freq = st.TermCategoryFrequencies(frek_df, document_category_df=document_df)
+    doc_term_cat_freq = st.TermCategoryFrequencies(frek_df)#, document_category_df=document_df)
     html = st.produce_scattertext_explorer(doc_term_cat_freq, category='1.',
                                            category_name='1.', not_category_name='2.')
 
@@ -432,10 +447,10 @@ def scatter(request):
 
     if not warn:
         tf_idfs1 = get_tf_idfs(testuak1)
-        testuak1 = [t.testua for t in testuak1 if t.tf_idfs1!='']
+        testuak1 = [t.testua for t in testuak1 if t.tf_idf!='']
         if testuak2:
             tf_idfs2 = get_tf_idfs(testuak2)
-            testuak2 = [t.testua for t in testuak2 if t.tf_idfs1!='']
+            testuak2 = [t.testua for t in testuak2 if t.tf_idf!='']
 
         if form_kopurua=='2':
             get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2)

@@ -11,7 +11,7 @@
       <div id=wrapper>
         <div id=nav_wrp>
           <nav>
-            <a href="#taulak" id="tables_switch" class="switch">Taulak</a>
+            <a href="#taulak" id="taulak_switch" class="switch">Taulak</a>
             <a href="#parteHartzeak" id="parteHartzeak_switch" class="switch">Parte Hartzeak</a> 
             <a href="#lda" id="lda_switch" class="switch">LDA</a>  
             <a href="#scatter" id="scatter_switch" class="switch">Scatter Text</a> 
@@ -23,13 +23,7 @@
       
         <div id="menu"> 
           <div id="forms_wrp">
-            <form id="forms" 
-                  data-taulak="{% url 'bis:taulak' %}"
-                  data-parteHartzeak="{% url 'bis:parteHartzeak' %}"
-                  {% comment %}
-                  data-scatter="{% url 'bis:scatter' %}"
-                  {% endcomment %}
-                  method="post">
+            <form id="forms" data-taulak="{% url 'bis:taulak' %}" data-parte-hartzeak="{% url 'bis:parteHartzeak' %}" data-scatter="{% url 'bis:scatter' %}" method="post">
               {% csrf_token %}
               <input type="hidden" id="form_kopurua" name="form_kopurua" value="1"> 
               {% include 'bis/form1.html' %}
@@ -55,7 +49,7 @@
           </div>
 
           <div id="lda" class="content">
-            <iframe src="{% static 'bis/ldavis.html' %}" id="lda_iframe"> </iframe>
+            <iframe src="about:blank" id="lda_iframe"> </iframe>
           </div>
 
           <div id="scatter" class="content">

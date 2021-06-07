@@ -47,15 +47,16 @@ html, body {
     height: 95%; 
     display: inline-block;
     top: 5%;
-    min-width: 50px;
+    min-width: 100px;
   }
   
   #lda_menu {
     position: fixed;
-    width: 10%;
+    width: 8%;
     height: 95%; 
     display: inline-block;
-    top: 4%;
+    top: 5%;
+    min-width: 100px;
   }
   
   #forms_wrp {
@@ -206,15 +207,6 @@ html, body {
     text-overflow: '';
     -webkit-appearance: button; /* hide default arrow in chrome OSX */
   }
-
-
-  
-  /* .custom_dropdown {
-    position: relative;
-    display: inline-block;
-    width: 90%;
-    margin: 0.5rem 0 0.5rem 0.5rem;
-  } */
   
   .data_wrp {
     margin: 0.2;
@@ -284,21 +276,31 @@ html, body {
     padding: 0.3em;
     margin-bottom: 0.2em;
   }
-  
-  .taula {
-    width: 48%;
-    height: 100%;
+  #taulak {
+
   }
-  
+
+  #taulak::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .taula {
+    float: left;
+    width: 50%;
+    height: 100%;
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top:1em;
+    box-sizing: border-box;
+  }
+
   .taula caption {
     font-size: 2em;
     background-color: #181969;
   }
-  
-  .taula1 {
-    float: left; 
-  }
-  
+
   .taula table{
     border-collapse: collapse;
     width: 100%;
@@ -324,6 +326,13 @@ html, body {
     color: white;
   }
   
+  @media screen and (max-width: 600px) {
+    .taula {
+      width: 100%;
+      height:auto; 
+    }
+  }
+
   iframe {
     display:block;
     overflow-x: hidden;
