@@ -22,32 +22,6 @@ $('.switch').click(function() {
     }
     $(display).show();
     $(this).addClass('active');
-    if (url.endsWith('#lda')){
-        console.log("lda");
-        setInterval(function(){   
-            console.log($('#lda_iframe').attr("src"));
-            var filter = $('input[name="filtroa"]:checked').val();
-            var html = "";
-            if (filter=="Gizon"){
-                html = "/static/bis/ldavis_gizon.html";
-
-            }else if (filter=="Emakume"){
-                html = "/static/bis/ldavis_emakume.html";
-
-            }else if (filter=="Euskara"){
-                html = "/static/bis/ldavis_euskara.html";
-
-            }else if (filter=="Gaztelera"){
-                html = "/static/bis/ldavis_gaztelera.html";
-
-            }else{
-                html = "/static/bis/ldavis.html";
-            }
-            if (html!=$('#lda_iframe').attr("src")){
-                $('#lda_iframe').attr("src", html);
-            }
-        }, 2000);
-    }
 });
 
 $('#number_btn').click(function() { 
@@ -286,7 +260,6 @@ $('#forms').on('submit', function(){
         });
         
     }else if (url.endsWith('#scatter')){
-        var html = "/templates/bis/scatter.html";
         console.log("scatter");
         post_url = $('#forms').data("scatter");
         form_data = new FormData(this);
@@ -298,18 +271,48 @@ $('#forms').on('submit', function(){
             processData: false,
             contentType: false,
             success:function(response){
+                $('#scatter').empty();
                 if (response.warn) {
                     alert(response.warn);
-                }        
+                }else{
+                    $('#scatter').append(response.html);
+                }
             },
         });
-        setInterval(function(){   
-            $('#scatter_iframe').attr("src", html);
-        }, 2000);
+    }
 
-    }  
     return false;
 });
+
+$('#form_lda').on('submit', function(){
+    var post_url;
+    var form_data; 
+    console.log("lda");
+    post_url = $('#form_lda').data("lda");
+    form_data = new FormData(this);
+    $.ajax({
+        url: post_url,
+        type:"POST",
+        headers: {'X-CSRFToken': csrftoken},
+        data: form_data,
+            processData: false,
+            contentType: false,
+            success:function(response){
+                $('#lda').empty();
+                if (response.warn) {
+                    alert(response.warn);
+                }else{
+                    $('#lda').append(response.lda_html);
+                }
+            },
+        });
+        
+    if (false){
+    }
+    return false;
+});  
+
+
 
 
 var get_hilabetea = function() {
