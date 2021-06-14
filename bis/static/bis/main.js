@@ -51,114 +51,6 @@ $('#number_btn').click(function() {
 }); 
 
 
-// $('#forms').on('submit', function(){
-//     console.log("taula!");
-//     var post_url = form.data("taulak");
-//     var form_data = new FormData(this);
-//     $.ajax({
-//         type:"POST",
-//         url : post_url,
-//         data: form_data,
-//         processData: false,
-//         contentType: false,
-//         success:function(response){
-//             $("#taula1").empty();
-//             $("#taula2").empty();
-//             if (response.warn) {
-//                 alert(response.warn);
-//             }
-//             if (response.taula_err1.length > 0){
-//                 $("#taula1").append('<caption style="font-weight: bold">'+ response.titulua1 + '</caption>');
-//                 $("#taula1").append('<tr><th>Entitatea</th><th>Maiztasuna</th><th>Tf_idf</th><th>Maiztasuna(tf_idf)</th></tr>');
-//                 $.each(response.taula_err1, function(index,row){
-//                     var NewRow = '<tr>'; 
-//                     $.each(row,function(index,e){
-//                         NewRow += '<td>'+ e +'</td>';
-//                     });
-//                     NewRow += '</tr>';
-//                     $("#taula1").append(NewRow);
-//                 });    
-//             }
-            
-//             if(response.taula_err2.length > 0) {
-//                 $("#taula2").append('<caption style="font-weight: bold">'+ response.titulua2 + '</caption>');
-//                 $("#taula2").append('<tr><th>Entitatea</th><th>Maiztasuna</th><th>Tf_idf</th><th>Maiztasuna(tf_idf)</th></tr>');
-//                 $.each(response.taula_err2, function(index,row){
-//                     var NewRow = '<tr>';
-//                     $.each(row,function(index,e){
-//                         NewRow += '<td>'+ e +'</td>';
-//                     });
-//                     NewRow += '</tr>';
-//                     $("#taula2").append(NewRow);
-//                 });
-//             }              
-//         },
-//     });
-
-//     // console.log("parteHartzea!")
-    // var post_url = $('#forms').data("parteHartzeak");
-    // $.ajax({
-    //     url: post_url,
-    //     type:"POST",
-    //     data: form_data,
-    //     processData: false,
-    //     contentType: false,
-    //     success:function(response){
-    //         $("#parteHartzeak1").empty();
-    //         $("#parteHartzeak2").empty();
-
-    //         if (response.warn) {
-    //             alert(response.warn);
-    //         }
-
-    //         if (response.participation_rows1.length > 0){
-    //             $("#parteHartzeak1").append('<h1>' + response.title1 + '</h1>');
-    //             var NewRow;
-    //             $.each(response.participation_rows1, function(index,r){
-    //                 NewRow = '<p>' + r + '</p>'; 
-    //                 $("#parteHartzeak1").append(NewRow);
-    //                 if (index>20){
-    //                     return false;
-    //                 }
-    //             });
-    //         }
-
-    //         if (response.participation_rows2.length > 0){
-    //             $("#parteHartzeak2").append('<h1>' + response.title2 + '</h1>');
-    //             var NewRow;
-    //             $.each(response.participation_rows2, function(index,r){
-    //                 NewRow = '<p>' + r + '</p>'; 
-    //                 $("#parteHartzeak2").append(NewRow);
-    //                 if (index>20){
-    //                     return false;
-    //                 }
-    //             });
-    //         }          
-    //     },
-    // });
-
-    // console.log("scatter");
-    // var post_url = $('#forms').data("scatter");
-    // $.ajax({
-    //     url: post_url,
-    //     type:"POST",
-    //     data: form_data,
-    //     processData: false,
-    //     contentType: false,
-    //     success:function(response){
-    //         if (response.warn) {
-    //             alert(response.warn);
-    //         }        
-    //     },
-    // });
-    // $('#scatter_iframe').attr("src", $('#scatter_iframe').attr("src"));
-
-//     return false;
-// });
-
-
-
-
 
 
 
@@ -260,7 +152,6 @@ $('#forms').on('submit', function(){
         });
         
     }else if (url.endsWith('#scatter')){
-        console.log("scatter");
         post_url = $('#forms').data("scatter");
         form_data = new FormData(this);
         $.ajax({
@@ -271,48 +162,45 @@ $('#forms').on('submit', function(){
             processData: false,
             contentType: false,
             success:function(response){
-                $('#scatter').empty();
                 if (response.warn) {
                     alert(response.warn);
-                }else{
-                    $('#scatter').append(response.html);
                 }
             },
         });
+        console.log($('#scatter_iframe').data("scatter"));
+        $('#scatter_iframe').attr("src", $('#scatter_iframe').data("scatter"));
     }
 
     return false;
 });
 
+
 $('#form_lda').on('submit', function(){
-    var post_url;
-    var form_data; 
-    console.log("lda");
-    post_url = $('#form_lda').data("lda");
-    form_data = new FormData(this);
-    $.ajax({
-        url: post_url,
-        type:"POST",
-        headers: {'X-CSRFToken': csrftoken},
-        data: form_data,
-            processData: false,
-            contentType: false,
-            success:function(response){
-                $('#lda').empty();
-                if (response.warn) {
-                    alert(response.warn);
-                }else{
-                    $('#lda').append(response.lda_html);
-                }
-            },
-        });
-        
-    if (false){
+    var filter = $('input[name="filtroa"]:checked').val();
+    var html = "";
+    if (filter=="gizon"){
+        html = "/static/bis/ldavis_gizon.html";
+
+    }else if (filter=="emakume"){
+        html = "/static/bis/ldavis_emakume.html";
+
+    }else if (filter=="euskara"){
+        html = "/static/bis/ldavis_euskara.html";
+
+    }else if (filter=="gaztelera"){
+        html = "/static/bis/ldavis_gaztelera.html";
+
+    }else{
+        html = "/static/bis/ldavis.html";
     }
+    console.log(html)
+    
+    if (html!=$('#lda_iframe').attr("src")){
+        $('#lda_iframe').attr("src", html);
+    }
+
     return false;
 });  
-
-
 
 
 var get_hilabetea = function() {

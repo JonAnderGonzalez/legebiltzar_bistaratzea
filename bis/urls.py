@@ -8,6 +8,5 @@ urlpatterns = [
     path('parteHartzeak/', views.parteHartzeak, name='parteHartzeak'),
     path('scatter/', views.scatter, name='scatter'),
     # path('sentimenduak/', views.sentimenduak, name='sentimenduak'),
-    path('hilabete_handler/', views.hilabete_handler, name='hilabete_handler'),
-    path('lda/', views.lda, name="lda")
+    path('hilabete_handler/', views.hilabete_handler, name='hilabete_handler')
 ]

@@ -413,8 +413,6 @@ def get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2):
 
     open(scatter_path, 'wb').write(html.encode('utf-8'))
 
-    return html
-
 def scatter(request):
     """
     scatter_text plot batean erakutsi entitateak.
@@ -456,33 +454,15 @@ def scatter(request):
             testuak2 = [t.testua for t in testuak2 if t.tf_idf!='']
 
         if form_kopurua=='2':
-            html = get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2)
+            get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2)
         else:
             # if testuak2:
-            html = get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2)
+            get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2)
             # else:
             #     #may change
             #     open(scatter_path, 'wb').write("")
 
-    return JsonResponse({'warn':warn, 'html':html})
-
-def lda(request):
-    lda = ""
-    warn = ""
-    filtroa = request.POST['filtroa']
-    gizon = "ldavis_gizon.html"
-    emakume = "ldavis_emakume.html"
-    euskera = "ldavis_euskera.html"
-    gaztelera = "ldavis_gaztelera.html"
-    guztia = "ldavis.html"
-    switch = {"gizon": gizon, "emakume": emakume, "euskara": euskera,
-              "gaztelera" :gaztelera, "guztia":guztia}
-    
-    lda_path = path.join(BASE_DIR, 'bis', 'static', 'bis', switch[filtroa])
-    lda_html = open(lda_path).read()
-    if not (lda_html):
-        warn = "Zerbait txarto dago."
-    return JsonResponse({'warn':warn, 'lda_html':lda_html})
+    return JsonResponse({'warn':warn})
 
 def hilabete_handler(request):
     """

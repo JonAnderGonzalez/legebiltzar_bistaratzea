@@ -30,7 +30,7 @@ html, body {
     color: #ffffff;
     font-size: 1.4em;
     box-sizing: border-box;
-    padding: 0.4rem 0;
+    padding: 0.2rem 0;
   }
   
   nav a:hover:not(.active) {
@@ -47,7 +47,6 @@ html, body {
     height: 95%; 
     display: inline-block;
     top: 5%;
-    min-width: 100px;
   }
   
   #lda_menu {
@@ -56,7 +55,7 @@ html, body {
     height: 95%; 
     display: inline-block;
     top: 5%;
-    min-width: 100px;
+
   }
   
   #forms_wrp {
@@ -177,6 +176,16 @@ html, body {
   #iragazi_btn:hover, #iragazi_btn:focus {
     background-color: #15638d;
   }
+
+  #iragazi_btn2 {
+    background-color: #0b4e72;
+    border: 1px solid #073852;
+    color: #ffffff;  
+  }
+  
+  #iragazi_btn2:hover, #iragazi_btn:focus {
+    background-color: #15638d;
+  }
   
   #number_btn {
     background-color: #67d159;
@@ -276,9 +285,6 @@ html, body {
     padding: 0.3em;
     margin-bottom: 0.2em;
   }
-  #taulak {
-
-  }
 
   #taulak::after {
     content: "";
@@ -325,6 +331,31 @@ html, body {
     background-color: #1d7bad;
     color: white;
   }
+
+  .responsive-iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 1em;
+    transform: scale(0.7);
+    transform-origin: 0 0;
+    width: 142.857%;
+    height: 142.857%;
+    overflow: hidden  ;
+  }
+  
+  
+  .content{
+    height: 100%;
+    width: 100%;
+  }  
+  
+  #sentimenduak {
+    color: #000000;
+    overflow: hidden;
+  }
+
   
   @media screen and (max-width: 600px) {
     .taula {
@@ -333,21 +364,12 @@ html, body {
     }
   }
 
-  iframe {
-    display:block;
-    overflow-x: hidden;
-    transform: scale(0.7);
-    transform-origin: 0 0;
-    width: 142.857%;
-    height: 142.857%;
-  }
-  
-  .content{
-    height: 100%;
-    width: 100%;
-  }
-  
-  #sentimenduak {
-    color: #000000;
-    overflow: hidden;
+
+  @media screen and (max-width: 900px) {
+    .responsive-iframe {
+      transform: scale(0.5);
+      width: 200%;
+      height: 200%;
+    }
+    
   }

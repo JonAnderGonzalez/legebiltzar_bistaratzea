@@ -1,6 +1,10 @@
 <div id="lda_form_wrp">
-  <form id="form_lda" data-lda="{% url 'bis:lda' %}" method="post">
+  <form id="form_lda" method="post">
     {% csrf_token %}
+
+  <input type="radio" id="guztia" name="filtroa" value="guztia">
+    <label for="guztia">Guztia</label><br>
+
   <input type="radio" id="emakume" name="filtroa" value="emakume">
     <label for="emakume">Emakume</label><br>
 
@@ -14,7 +18,7 @@
     <label for="gaztelera">Gaztelera</label><br>
 
   <div class="btn_wrp">
-    <input class="btn_copy" id="iragazi_btn" type="submit" value="Iragazi", name="iragazi_btn">
+    <input class="btn_copy" id="iragazi_btn2" type="submit" value="Iragazi", name="iragazi_btn2">
   </div>   
   </form>
     
