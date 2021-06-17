@@ -122,7 +122,7 @@ def testuak_iragazi(bakarra=False, **aukerak):
         if urtea_b!='':
             if hilabetea_b!='':
                 testuak = testuak.filter(parteHartzea__data__lte=datetime.date(int(urtea_b),
-                                     int(hilabetea_b), monthrange(urtea_b,hilabetea_b)[1]))
+                                     int(hilabetea_b), monthrange(int(urtea_b),int(hilabetea_b))[1]))
             else:
                 testuak = testuak.filter(parteHartzea__data__year__lte=urtea_b)
 
@@ -186,7 +186,7 @@ def form_handler(request_, form_kopurua, mode="other"):
     elif mode!="scatter":
         testuak2 = []
     else:
-        testuak2 = testuak_iragazi(unique=True, abizenak=abizenak, gizon=gizon, emakume=emakume,
+        testuak2 = testuak_iragazi(bakarra=True, abizenak=abizenak, gizon=gizon, emakume=emakume,
                               alderdia=alderdia, euskera=euskera, gaztelania=gaztelania,urtea_h=urtea_h,
                               urtea_b=urtea_b, hilabetea_h=hilabetea_h, hilabetea_b=hilabetea_b)
 
@@ -403,11 +403,11 @@ def get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2):
  
     data = {'1.':frek1,'2.':frek2}
     frek_df = pd.DataFrame(data, index=entitateak)
-    # document_df = pd.DataFrame([{'text': t,
-    #                             'category': '1.'} for t in testuak1] +[{'text': t,
-    #                             'category': '2.'} for t in testuak2])
+    document_df = pd.DataFrame([{'text': t,
+                                'category': '1.'} for t in testuak1] +[{'text': t,
+                                'category': '2.'} for t in testuak2])
 
-    doc_term_cat_freq = st.TermCategoryFrequencies(frek_df)#, document_category_df=document_df)
+    doc_term_cat_freq = st.TermCategoryFrequencies(frek_df, document_category_df=document_df)
     html = st.produce_scattertext_explorer(doc_term_cat_freq, category='1.',
                                            category_name='1.', not_category_name='2.')
 
@@ -443,7 +443,7 @@ def scatter(request):
         warn = "Iragazketak 0 testu bueltatu ditu."
     elif not testuak1:
         warn = "1. formularioko iragazketak 0 testu bueltatu ditu."
-    elif not (testuak2 and form_kopurua=='2'):
+    elif form_kopurua=='2' and not testuak2:
         warn = "2. formularioko iragazketak 0 testu bueltatu ditu."
 
     if not warn:
@@ -453,14 +453,7 @@ def scatter(request):
             tf_idfs2 = get_tf_idfs(testuak2)
             testuak2 = [t.testua for t in testuak2 if t.tf_idf!='']
 
-        if form_kopurua=='2':
-            get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2)
-        else:
-            # if testuak2:
-            get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2)
-            # else:
-            #     #may change
-            #     open(scatter_path, 'wb').write("")
+        get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2)
 
     return JsonResponse({'warn':warn})
 

@@ -154,6 +154,7 @@ $('#forms').on('submit', function(){
     }else if (url.endsWith('#scatter')){
         post_url = $('#forms').data("scatter");
         form_data = new FormData(this);
+        
         $.ajax({
             url: post_url,
             type:"POST",
@@ -167,10 +168,13 @@ $('#forms').on('submit', function(){
                 }
             },
         });
-        console.log($('#scatter_iframe').data("scatter"));
-        $('#scatter_iframe').attr("src", $('#scatter_iframe').data("scatter"));
+        
     }
 
+    var ts = "?_" + new Date().getTime();
+    $('#scatter_iframe').attr("src", $('#scatter_iframe').data("scatter") + ts);
+
+    
     return false;
 });
 
