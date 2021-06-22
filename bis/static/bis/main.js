@@ -165,16 +165,19 @@ $('#forms').on('submit', function(){
             success:function(response){
                 if (response.warn) {
                     alert(response.warn);
+                }else{
+                    var start = new Date().getTime();
+                    var end = start;
+                    while(end < start + 10000) {
+                      end = new Date().getTime();
+                    }
+                    var ts = "?_" + new Date().getTime();
+                    $('#scatter_iframe').attr("src", $('#scatter_iframe').data("scatter") + ts);
                 }
             },
         });
-        
     }
 
-    var ts = "?_" + new Date().getTime();
-    $('#scatter_iframe').attr("src", $('#scatter_iframe').data("scatter") + ts);
-
-    
     return false;
 });
 
@@ -197,7 +200,6 @@ $('#form_lda').on('submit', function(){
     }else{
         html = "/static/bis/ldavis.html";
     }
-    console.log(html)
     
     if (html!=$('#lda_iframe').attr("src")){
         $('#lda_iframe').attr("src", html);
@@ -248,8 +250,6 @@ var get_hilabetea = function() {
             }
         },
     });
-
-    return false;
 };
 
 $('.urtea').change(get_hilabetea);

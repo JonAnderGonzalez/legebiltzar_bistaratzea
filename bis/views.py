@@ -411,7 +411,9 @@ def get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2):
     html = st.produce_scattertext_explorer(doc_term_cat_freq, category='1.',
                                            category_name='1.', not_category_name='2.')
 
-    open(scatter_path, 'wb').write(html.encode('utf-8'))
+    with open(scatter_path, 'wb') as f:
+        f.write(html.encode('utf-8'))
+
 
 def scatter(request):
     """
@@ -452,8 +454,10 @@ def scatter(request):
         if testuak2:
             tf_idfs2 = get_tf_idfs(testuak2)
             testuak2 = [t.testua for t in testuak2 if t.tf_idf!='']
-
-        get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2)
+            get_scatter(tf_idfs1, tf_idfs2, testuak1, testuak2)
+        else:
+            warn = "Formulario bakarrarekin data erabili, aurreko hilabeteak alderatuko dira aukeratutakoekin."
+        
 
     return JsonResponse({'warn':warn})
 
